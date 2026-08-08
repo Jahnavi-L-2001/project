@@ -20,4 +20,4 @@ select
     f.kid_name
 from employees e
 left join family f
-    on e.employee_name = f.parent_name
+    on upper(e.employee_name) = upper(f.parent_name)
