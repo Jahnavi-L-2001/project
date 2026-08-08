@@ -12,7 +12,7 @@ sql/ - Core Snowflake setup scripts
   rbac_and_secure_views.sql - Role-based access control and secure views
   streams_and_tasks.sql - Streams and tasks for change tracking/automation
   snowpipes.sql - Snowpipe setup for continuous data ingestion
-  data_sharing.sql - Data sharing configuration
+  
 
 snowpark/ - Python scripts using Snowpark
   connect.py - Establishes a connection to Snowflake
