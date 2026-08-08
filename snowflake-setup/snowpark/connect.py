@@ -2,9 +2,7 @@ from dotenv import load_dotenv
 import os
 from snowflake.snowpark import Session
 
-
 load_dotenv()
-
 
 connection_parameters = {
     "account": os.getenv("SNOWFLAKE_ACCOUNT"),
@@ -16,6 +14,7 @@ connection_parameters = {
     "role": os.getenv("SNOWFLAKE_ROLE"),
 }
 
+session = None
 
 try:
     # Create Snowflake session
@@ -28,30 +27,29 @@ try:
 
     print(result)
 
-
     flatten_df = session.sql("""
         SELECT
-          raw_data:"Name"::STRING                    AS parent_name,
-          raw_data:"Gender"::STRING                  AS gender,
-          raw_data:"DOB"::DATE                        AS dob,
-          raw_data:"Address"."City"::STRING           AS city,
-          raw_data:"Address"."State"::STRING          AS state,
-          raw_data:"Address"."House Number"::STRING   AS house_number,
-          raw_data:"Phone"."Office"::STRING           AS office_phone,
-          raw_data:"Phone"."Personal"::STRING         AS personal_phone,
-          k.value::STRING                             AS kid_name
+            raw_data:"Name"::STRING                                 AS parent_name,
+            raw_data:"Gender"::STRING                                AS gender,
+            raw_data:"DOB"::DATE                                     AS dob,
+            raw_data:"Address"."City"::STRING        AS city,
+            raw_data:"Address"."State"::STRING        AS state,
+            raw_data:"Address"."House Number"::STRING  AS house_number,
+            raw_data:"Phone"."Office"::STRING          AS office_phone,
+            raw_data:"Phone"."Personal"::STRING        AS personal_phone,
+            k.value::STRING                                          AS kid_name
         FROM family_raw,
         LATERAL FLATTEN(input => raw_data:"Kids") k
     """)
 
-    flatten_df.show()
+    row_count = flatten_df.count()
     flatten_df.write.mode("overwrite").save_as_table("family")
-    print(f"family table created with {flatten_df.count()} rows")
-
-    # Close the session
-    session.close()
+    print(f"family table created with {row_count} rows")
 
 except Exception as e:
     print("Failed to connect to Snowflake")
     print(e)
 
+finally:
+    if session:
+        session.close()
