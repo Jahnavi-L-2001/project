@@ -37,3 +37,16 @@ models:
       - name: avg_order_value
         tests:
           - not_null
+
+  - name: family_masked
+    description: "Secure view masking sensitive phone number columns based on role"
+    columns:
+      - name: parent_name
+        tests:
+          - not_null
+      - name: office_phone
+        tests:
+          - not_null
+      - name: personal_phone
+        tests:
+          - not_null
