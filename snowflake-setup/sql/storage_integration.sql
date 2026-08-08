@@ -13,7 +13,7 @@ CREATE OR REPLACE STORAGE INTEGRATION s3_int
   TYPE = EXTERNAL_STAGE
   STORAGE_PROVIDER = 'S3'
   ENABLED = TRUE
-  STORAGE_AWS_ROLE_ARN = 'arn:aws:iam::765425736190:role/snowflake_s3_role'
-  STORAGE_ALLOWED_LOCATIONS = ('s3://marjsnfk/snowflake_dbt_project/');
+  STORAGE_AWS_ROLE_ARN = 'arn:aws:iam::<your_aws_account_id>:role/<your_role_name>'
+  STORAGE_ALLOWED_LOCATIONS = ('s3://<your-bucket>/<your-prefix>/')
 
 DESC STORAGE INTEGRATION s3_int;
