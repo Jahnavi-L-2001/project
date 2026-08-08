@@ -18,7 +18,7 @@ CREATE OR REPLACE FILE FORMAT parquet_format
   TYPE = PARQUET;
 
 CREATE OR REPLACE STAGE s3_stage
-  URL = 's3://marjsnfk/snowflake_dbt_project/'
+  URL = 's3://<your-bucket>/<your-prefix>/'
   STORAGE_INTEGRATION = s3_int;
 
 LIST @s3_stage;
