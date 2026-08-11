@@ -1,4 +1,4 @@
 select *
 from {{ ref('family_masked') }}
-where office_phone not like 'XXX-XXX-%'
-   or personal_phone not like 'XXX-XXX-%'
+where current_role() != 'ACCOUNTADMIN'
+  and (office_phone not like 'XXX-XXX-%' or personal_phone not like 'XXX-XXX-%')
