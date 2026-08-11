@@ -44,7 +44,18 @@ models:
           - not_null
       - name: product_category
         description: "Normalized product category"
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['ELECTRONICS','FURNITURE','CLOTHING','GROCERY','TOYS','BOOKS','SPORTS','ACCESSORIES','BEAUTY','HOME_APPLIANCES','HOME']
       - name: order_amount
         description: "Order amount in currency"
+        tests:
+          - not_null  
+  - name: stg_family
+    description: "Cleaned family/dependent data from raw.family"
+    columns:
+      - name: parent_name
+        description: "Name of the parent/employee this record belongs to"
         tests:
           - not_null

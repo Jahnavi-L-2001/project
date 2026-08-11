@@ -1,5 +1,5 @@
 # Project metadata
-name: 'snowflake-dbt-project'
+name: 'snowflake_dbt_project'
 version: '1.0.0'
 config-version: 2
 
@@ -21,7 +21,7 @@ clean-targets:
 
 # Model configurations
 models:
-  snowflake-dbt-project:
+  snowflake_dbt_project:
     staging:
       +materialized: view
     intermediate:
