@@ -1,3 +1,8 @@
+{{ config(
+    materialized='table',
+    cluster_by=['product_category']
+) }}
+
 select
     product_category,
     count(order_id)           as total_orders,
