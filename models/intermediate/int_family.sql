@@ -1,12 +1,11 @@
 with family as (
     select * from {{ ref('stg_family') }}
 ),
-
 employees as (
     select * from {{ ref('stg_employee') }}
 )
-
 select
+    {{ dbt_utils.generate_surrogate_key(['e.employee_id', 'f.parent_name']) }} as family_key,
     e.employee_id,
     e.employee_name,
     f.parent_name,
